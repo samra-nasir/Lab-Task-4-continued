@@ -1,0 +1,148 @@
+<html>
+<head>
+	<title>Lab Task 4</title>
+	<style>
+
+		#background_static{
+			background-image: url('images/stars-06.jpg');
+			background-position: 0px 0px;
+			width: 100%;
+			height: 100%;
+					
+		}
+
+		#background{
+			background-image: url('images/stars-06.jpg');
+			background-position: 0px 0px;
+			width: 100%;
+			height: 100%;
+			animation: stars 10s linear infinite;
+			overflow:hidden;
+					
+		}
+
+		@keyframes stars{
+			from{background-position: 0% 0%;}
+			to{background-position: 100% 0%;}
+
+		}
+
+
+		#object{
+			margin-left: 10%;
+			background-image: url('images/plane.png');
+			width:23%;
+			height: 18%;
+			right: 1000px;
+			top: 21.51%;
+			background-repeat: no-repeat;
+			background-position: 10% 5%;
+			position: absolute;		
+	
+		}
+
+		@keyframes bird{
+			from{right:0%;}
+			to{right:100%;}
+		}
+
+		#obs1{
+			position: absolute;
+			right: 0px;
+			top: 25%;
+			animation: bird 7s linear infinite;
+			
+
+		}    
+
+		#obs2{
+			position: absolute;
+			right: 0px;
+			top: 48%;
+			padding: 50px;
+			animation: bird 3s linear infinite;
+		}  
+
+	</style>
+
+
+	<script>
+		window.onkeydown = function (e) {
+    			var code = e.keyCode;
+    			if (code === 38)
+        			clickUp();
+    			 else if (code === 40)
+        			clickDown();
+    			
+		}
+
+
+		function clickDown(){
+			var plane= document.getElementById("object");	
+			plane.style.top=50+'%';
+
+		}
+
+		function clickUp(){
+			var plane= document.getElementById("object");
+			plane.style.top=21.51 +'%';
+
+		}
+
+		function start(){
+			var ob1    = document.getElementById("obs1");
+			var ob2    = document.getElementById("obs2");
+			var stop   = document.getElementById("background");
+			ob1.style.left=1300+ 'px';
+			ob2.style.left=1250+ 'px';
+			stop.setAttribute('id','background_static')
+		}
+
+
+
+
+	</script>
+
+</head>
+
+<body>
+	<div id='background'>
+			<div id='object'></div><img src='images/obstacle.png' id='obs1'><img src='images/obstacle.png' id='obs2'>
+	</div>
+
+	<script>
+		var pl = document.getElementById("object");
+		var ob1    = document.getElementById("obs1");
+		var ob2    = document.getElementById("obs2");
+		var abc= setInterval(function(){
+    
+    		var ob1_right  = parseInt(window.getComputedStyle(ob1,null).getPropertyValue('right')),
+        	ob1_width = parseInt(window.getComputedStyle(ob1,null).getPropertyValue('width'));
+        	var ob1_top  = parseInt(window.getComputedStyle(ob1,null).getPropertyValue('top'));
+
+        	var ob2_right  = parseInt(window.getComputedStyle(ob2,null).getPropertyValue('right')),
+        	ob2_width = parseInt(window.getComputedStyle(ob2,null).getPropertyValue('width'));
+        	var ob2_top  = parseInt(window.getComputedStyle(ob2,null).getPropertyValue('top'));
+        	
+    
+  
+    		var pl_right = parseInt(window.getComputedStyle(pl,null).getPropertyValue('right'));
+    		var pl_top = parseInt(window.getComputedStyle(pl,null).getPropertyValue('top'));
+
+    
+    //Stop moving
+    	if(((ob1_right+ob1_width-25>= pl_right)&&(ob1_top>pl_top))||((ob2_right+ob2_width>= pl_right)&&(ob2_top<pl_top))) {
+    			start();
+    			alert("Game Over");
+    			clearInterval(abc);
+    	}
+    
+    //Set the character's final position    
+    	
+	},33);
+
+
+	</script>
+</body>
+
+</html>
